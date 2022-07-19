@@ -160,6 +160,15 @@ void InsertBetween(struct Node* head, int after, int before, int value) {
     }
 }
 
+int length(struct Node* head) {
+    int count = 0;
+    while (head != NULL) {
+        count++;
+        head = head->next;
+    }
+    return count;
+}
+
 
 int main(int argc, char const *argv[])
 {
@@ -184,6 +193,7 @@ int main(int argc, char const *argv[])
     printList(head);
     printf("Backward: ");
     printInv(head);
+    printf("length: %d\n", length(head));
 
     push(&head, 0);
     printList(head);

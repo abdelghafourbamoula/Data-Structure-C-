@@ -144,6 +144,15 @@ void deleteCenter(struct Node* head) {
     
 }
 
+int length(struct Node* head) {
+    int count = 0;
+    while (head != NULL) {
+        count++;
+        head = head->next;
+    }
+    return count;
+}
+
 
 int main(int argc, char const *argv[])
 {
@@ -162,7 +171,9 @@ int main(int argc, char const *argv[])
     head->next = second;
     second->next = third;
     third->next = NULL;
+
     printList(head);
+    printf("length: %d\n", length(head));
 
     // insert on the first 
     push(&head, 0);
@@ -195,6 +206,7 @@ int main(int argc, char const *argv[])
     // delete value 
     delete(head, 33);
     printList(head);
+
 
     return 0;
 }
