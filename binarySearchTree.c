@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 typedef struct Node
 {
@@ -38,20 +39,20 @@ void append(BST* tree, int data) {
         while (node != NULL)
         {
             temp = node;
-            if (node->data > data)
-                node = node->right;
-            else if (node->data < data)
+            if (data < node->data)
                 node = node->left;
+            else if (data > node->data)
+                node = node->right;
             else{
                 printf("%d already exist ...\n", data);
                 return;
             }        
         }
         node = createNode(data);
-        if (temp->data > data)
-            temp->right = node;
-        else
+        if (data < temp->data)
             temp->left = node;
+        else
+            temp->right = node;
     }
     else
     {
@@ -59,15 +60,32 @@ void append(BST* tree, int data) {
     }
     tree->size++;
     tree->edges = tree->size-1;
-    
+}
+
+bool search(Node* node, int data) {
+    if (node == NULL)   return false;
+    else if (node->data == data)    return true;
+    else if (node->data < data)     search(node->left, data);
+    else    search(node->right, data);
+} 
+
+int min(Node* node){
+    if (node == NULL) printf("not found ...\n");
+    if (node->left == NULL) return node->data;
+    else    return min(node->left);    
+}
+
+int max(Node* node) {
+    if (node == NULL) printf("not found ...\n");
+    if (node->right == NULL) return node->data;
+    else    return max(node->right);    
 }
 
 void print(Node* node) {
     if (node != NULL) {
         print(node->left);
         print(node->right);
-        printf("%d ", node->data);
-        
+        printf("%d ", node->data);       
     }
 }
 
@@ -88,5 +106,14 @@ int main(int argc, char const *argv[])
     print(tree->head);
     printf("\nsize: %d - edges: %d\n", tree->size, tree->edges);
     
+    printf("search 33 : ");
+    search(tree->head, 25)==true ? printf("true") : printf("false");
+    printf("\nsearch 46 : ");
+    search(tree->head, 46)==true ? printf("true") : printf("false");
+    printf("\n");
+
+    printf("min: %d\n", min(tree->head));
+    printf("max: %d\n", max(tree->head));
+
     return 0;
 }
