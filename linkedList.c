@@ -82,19 +82,19 @@ void pop(struct Node** head){
     else {
         printf("the list is empty ...");
     }
-    
 }
 
 void popLast(struct Node* head){
 
     while (head != NULL){
         if (head->next->next == NULL) {
+            struct Node* temp = head->next;
             head->next = NULL;    
+            free(temp);
         }
 
         head = head->next;
     }
-    
 }
 
 void delete(struct Node* head, int data) {
@@ -104,16 +104,16 @@ void delete(struct Node* head, int data) {
         return;
     }
     
-    
     while (head->next != NULL) {
         if(head->next->data == data){
+            struct Node* temp = head->next;
             head->next = head->next->next;
+            free(temp);
             break;
         }
         
         head = head->next;
-    }
-    
+    } 
 }
 
 void deleteCenter(struct Node* head) {
@@ -129,9 +129,10 @@ void deleteCenter(struct Node* head) {
         int i=0;
 
         while (head != NULL) {  
-           
             if (i == length/2 - 1) {
+                struct Node* temp = head->next;
                 head->next = head->next->next;
+                free(temp);
                 break;
             }
             i++;

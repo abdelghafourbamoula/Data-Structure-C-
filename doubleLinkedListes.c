@@ -91,6 +91,7 @@ void popLast(struct Node* head) {
 
     head->prev->next = NULL;
     head->prev = NULL;
+    free(head);
 }
 
 void delete(struct Node* head, int data) {
@@ -110,6 +111,7 @@ void delete(struct Node* head, int data) {
                 head->next->prev = head->prev;
                 head->next = NULL;
                 head->prev = NULL;
+                free(head);
             }
 
             head = head->next;
